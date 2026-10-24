@@ -428,7 +428,7 @@ else {
 						$showPayment .= sprintf('<img src="%s" class="bank-logo"/>',MpayPayment::get_bank_icon($bacs_account->bank_name));
 					}
 					$showPayment .= '<section class="woocommerce-mpay-bck-bank-details">
-						<!-- BANK DETAIL TITLE-->
+						<!-- BANK DETAIL TITLE -->
 						<h2 class="wc-mpay-bck-bank-details-heading" style="text-align: center;">' . esc_html__('Our bank details', 'bck-verify-bank-transfer') . '</h2>';
 					if (!$is_payment)
 						$showPayment .= '<div><h4 style="color: #856404; max-width: 750px; margin: auto; margin-bottom: 20px; background-color: #ffeeba; padding: 15px; border-radius: 7px;">' .  sprintf(__("Please transfer the correct content <b style='font-size: 20px;'>%s</b> for we can confirm the payment", 'bck-verify-bank-transfer'), esc_html($account_fields['content']['value'])) . '</h4></div>
@@ -438,7 +438,7 @@ else {
 						$showPayment .= '<img src="' . plugins_url('../../assets/success-icon.png', __FILE__) . '"  style = "width: 100px; margin: 20px" id =""/>';
 					}
 					$showPayment .= '
-						<!-- BANK DETAIL INFO TABLE-->
+						<!-- BANK DETAIL INFO TABLE -->
 						<table class="table table-bordered" style="font-size: 15px;max-width: 800px;margin-left: auto;margin-right: auto;">
 						<tbody>
 						<tr class="" >
@@ -502,9 +502,9 @@ else {
 						<input name="bank_id" type="hidden" value="' . $account_fields['account_number']['value'] . '">
 						<input name="order_id" type="hidden" value="' . $order_id . '">
 
-						<!-- <img src="' . plugins_url('../../assets/clock.gif', __FILE__) . '"  style = "width: 100px; display:none;margin: auto;" id ="image_loading_'.$i.'"/> -->
+						
 						<div><span class="qhtp-timer" style="display:none" id="timer_'.$i.'">03:00</span></div>
-						<button  name="submit_paid" id="input_mpay" class="submit_paid_'.$i.'" style="margin-bottom: 20px;" '.($disabled? '': 'onclick="fetchStatus('.$i.')"').' type="button"
+						<button  name="submit_paid" id="input_mpay" class="submit_paid_'.$i.'" style="margin-bottom: 20px;"  type="button"
 						class="button '.$disabled.'"  >' . $order_content  . '</button>
 						</form>
 						</center>
@@ -586,7 +586,8 @@ else {
 							jQuery(e).closest(".woocommerce-mpay-bck-qr-scan").find(".wc-mpay-bck-bank-details-heading").hide();
 							jQuery("img.bank-logo").css("display","inline-block");
 						}
-						jQuery(document).ready(function(){
+						jQuery(document).ready(function($){
+							if('.($disabled?'false':'true').') $(".submit_paid_'.$i.'").click(function(){fetchStatus('.$i.')});
 							if('.($auto_check? 'true':'false').') fetchStatus('.$i.');
 						});
 					</script>';
@@ -606,7 +607,12 @@ else {
 			}
 		}
 			$output .= '</div>';
-			//echo wp_kses_post($output);
+			
+			$output = wp_kses_post($output);
+			$output = str_replace( '&lt;', '<', $output );  // Decode <
+		    $output = str_replace( '&gt;', '>', $output );  // Decode >
+		    $output = str_replace( '&quot;', '"', $output ); // Decode "
+		    $output = str_replace( '&#039;', "'", $output ); // Decode '
 			echo $output;
 		}
 

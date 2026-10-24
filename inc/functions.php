@@ -187,7 +187,8 @@ add_filter( 'wp_kses_allowed_html', function($allowed_html){
 		'href'  => array(),
 		'rel'   => array(),
 		'title' => array(),
-		'onclick'=>array(),'value'=>array(),'src'=>array(),
+		//'onclick'=>array(),
+		'value'=>array(),'src'=>array(),
 		'name'=>array(),'id'=>array(),'style'=>array(),'type'=>array(),'class'=>array(),
 	);
 	$allowed_html['style'] = $atts;
@@ -211,7 +212,7 @@ add_action('woocommerce_admin_order_data_after_shipping_address', function($orde
 
     $ui = '<div>';
     $ui.= MpayPayment::get_bank_icon(WC_Base_Mpay::payment_name($payment),true);
-    if($content) $ui.= '<div><code>'.$content.'</code></div>';
+    if($content) $ui.= '<div><code>'.esc_html($content).'</code></div>';
     $ui.= '</div>';
 
     echo wp_kses_post($ui);
@@ -271,7 +272,7 @@ add_action( 'manage_shop_order_posts_custom_column' , function($column, $post_id
 		$order = wc_get_order($post_id);
 		$payment = $order->get_payment_method();
 		if($payment) {
-			printf('<a href="%s" target="_blank">%s</a>', $order->get_checkout_order_received_url(), MpayPayment::get_bank_icon(WC_Base_Mpay::payment_name($payment),true));
+			printf('<a href="%s" target="_blank">%s</a>', esc_url($order->get_checkout_order_received_url()), MpayPayment::get_bank_icon(WC_Base_Mpay::payment_name($payment),true));
 		}
 	}
 

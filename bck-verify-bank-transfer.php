@@ -560,16 +560,18 @@ class MpayPayment
 					//if(isset($desJson['app'])) $update['bank_transfer']['app'] = $desJson['app'];
 				}
 			}
+			$order_id = hpc_parse_order_id($des, $this->settings['bank_transfer']['transaction_prefix'], $this->settings['bank_transfer']['case_insensitive']);
+			$sanitized_des = sanitize_text_field($des);
 			//message for telegram: Amount: %s\nDesc: %s\nDate: %s
 			$bankMsg = sprintf("BCK Thông báo giao dịch:\nTrang web: %s\nSố tiền: %s\nMã: %s\nTin nhắn: %s",
 					$domain,
 					number_format($transaction->amount),
 					hpc_parse_code($des,$this->settings['bank_transfer']['transaction_prefix'], $this->settings['bank_transfer']['case_insensitive']), 
-					$transaction->description//$transaction->when
+					$sanitized_des//$transaction->when
 				);
-			$order_id = hpc_parse_order_id($des, $this->settings['bank_transfer']['transaction_prefix'], $this->settings['bank_transfer']['case_insensitive']);
+			
 			if (is_null($order_id)) {
-				wp_send_json (['error'=>"Order ID not found from transaction content: " . $des . "\n"]);
+				wp_send_json (['error'=>"Order ID not found from transaction content: " . $sanitized_des . "\n"]);
 				continue;
 			}
 			//echo ("Start processing orders with transaction code " . $order_id . "...\n");
@@ -595,9 +597,9 @@ class MpayPayment
 			}*/
 			$total = number_format($transaction->amount, 0);
 			//$order_note = sprintf(__('BCK announces received <b>%s</b> VND, content <B>%s</B> has been moved to <b>Account number %s</b>', 'bck-verify-bank-transfer'), $total, $des, $transaction->subAccId);
-			$order_note = "BCK thông báo nhận <b>{$total}</b> VND, nội dung <B>{$des}</B> chuyển vào <b>STK {$transaction->subAccId}</b>";
+			$order_note = "BCK thông báo nhận <b>{$total}</b> VND, nội dung <B>{$sanitized_des}</B> chuyển vào <b>STK {$transaction->subAccId}</b>";
 			$order->add_order_note($order_note);
-			$order->update_meta_data('bck_ndck', $des);
+			$order->update_meta_data('bck_ndck', $sanitized_des);
 
 			// $order_note_overpay = "mpay thông báo <b>{$total}</b> VND, nội dung <b>$des</b> chuyển khoản dư vào <b>STK {$transaction->subAccId}</b>";
 			$acceptable_difference = abs($this->settings['bank_transfer']['acceptable_difference']);

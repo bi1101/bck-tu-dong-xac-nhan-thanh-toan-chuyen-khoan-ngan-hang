@@ -41,7 +41,16 @@ class Mpay_Admin_Page
 		delete_option('mpay_oauth');
 		$this->oauth_settings = array();//MpayPayment::oauth_get_settings();
 	}
-
+	private function sanitize_settings_recursive( $input ) {
+        if ( is_array( $input ) ) {
+            foreach ( $input as $key => &$value ) {
+                $value = $this->sanitize_settings_recursive( $value );
+            }
+        } else {
+            $input = sanitize_text_field( $input );
+        }
+        return $input;
+    }
 	/**
 	 * Save settings for the plugin
 	 */
@@ -49,7 +58,7 @@ class Mpay_Admin_Page
 	{
 
 		if (wp_verify_nonce($_REQUEST['mpay_nonce'], 'mpay_save_settings')) {
-			$settings = isset($_POST['settings'])? hpc_filter_options($_POST['settings']): [];
+			$settings = isset($_POST['settings'])? $this->sanitize_settings_recursive($_POST['settings']): [];
 			if(isset($this->settings['bank_transfer_accounts'])) $settings['bank_transfer_accounts'] = $this->settings['bank_transfer_accounts'];
 
 			if (strlen($this->settings['bank_transfer']['secure_token']) <= 0) {
@@ -64,7 +73,9 @@ class Mpay_Admin_Page
 			if(!empty($settings['bank_transfer']['transaction_prefix'])) {
 				$settings['bank_transfer']['transaction_prefix'] = hpc_clean_prefix($settings['bank_transfer']['transaction_prefix']);	//$prefix =
 			}
-			$settings['bank_transfer']['extra_text'] = remove_accents($settings['bank_transfer']['extra_text']);
+			if(isset($settings['bank_transfer']['extra_text'])) {
+				$settings['bank_transfer']['extra_text'] = sanitize_textare_field($settings['bank_transfer']['extra_text']);
+			}
 			//check if prefix changed
 			/*if(!empty($this->settings['bank_transfer']['transaction_prefix']) && $prefix!= $this->settings['bank_transfer']['transaction_prefix']) {
 				$this->reset_oauth();	//reset
@@ -212,7 +223,7 @@ class Mpay_Admin_Page
 							<th scope="row"><?php echo  __('Extra Transaction Prefix (optional)', 'bck-verify-bank-transfer') ?></th>
 
 							<td>
-								<input type="text" name="settings[bank_transfer][extra_text]" id="transaction_extra_text" value="<?php echo !empty($settings['bank_transfer']['extra_text'])? esc_html($settings['bank_transfer']['extra_text']): ''; ?>"/><!--<textarea style="width: 100%;min-height: 200px;" -->
+								<input type="text" name="settings[bank_transfer][extra_text]" id="transaction_extra_text" value="<?php echo !empty($settings['bank_transfer']['extra_text'])? esc_attr($settings['bank_transfer']['extra_text']): ''; ?>"/><!--<textarea style="width: 100%;min-height: 200px;" -->
 								<p><i><?php echo __("Ex: 'chuyen khoan ABC123' ('chuyen khoan' is the extra content). Maximum 20 characters, no spaces and no special characters and no number.",'bck-verify-bank-transfer');?></i></p>
 							</td>
 						</tr>
@@ -272,13 +283,13 @@ class Mpay_Admin_Page
 						<tr>
 							<th scope="row"><?php echo __('Telegram Bot Token', 'bck-verify-bank-transfer') ?></th>
 							<td>
-								<input type="text" name="settings[telegram_token]" id="telegram_token" value="<?php echo isset($settings['telegram_token'])? $settings['telegram_token']:'' ?>"/>
+								<input type="text" name="settings[telegram_token]" id="telegram_token" value="<?php echo isset($settings['telegram_token'])? esc_attr($settings['telegram_token']):'' ?>"/>
 							</td>
 						</tr>
 						<tr>
 							<th scope="row"><?php echo __('Telegram Group ID', 'bck-verify-bank-transfer') ?></th>
 							<td>
-								<input type="text" name="settings[telegram_chatid]" id="telegram_chatid" value="<?php echo isset($settings['telegram_chatid'])? $settings['telegram_chatid']:'' ?>"/>
+								<input type="text" name="settings[telegram_chatid]" id="telegram_chatid" value="<?php echo isset($settings['telegram_chatid'])? esc_attr($settings['telegram_chatid']):'' ?>"/>
 							</td>
 						</tr>
 					

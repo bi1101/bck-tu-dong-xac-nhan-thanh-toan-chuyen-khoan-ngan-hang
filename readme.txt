@@ -5,7 +5,7 @@
  - Requires WooCommerce at least: 2.1
  - Stable Tag: 2.0.1
  - Version: 2.0.1
- - Tested up to: 6.3.0
+ - Tested up to: 6.7.1
  - Author URI: https://haibasoft.com
  - Plugin URI: https://bck.haibasoft.com/
  - License: GPLv3.0
@@ -29,7 +29,7 @@ Tích hợp thanh toán quét mã QR Code MoMo, ViettelPay, VNPay, Vietcombank, 
 
 - Tải app BCK trên Google Play để xác nhận thanh toán tự động. [Xem hướng dẫn](https://bck.haibasoft.com/help.html)
 
-👉 Xem [demo](https://demo-shop.hoangweb.net/)
+👉 Xem [demo](https://demo-shop.hoangweb.com/)
 
 Với 1 chiếc điện thoại, bạn tích hợp **KHÔNG GIỚI HẠN** website, **KHÔNG GIỚI HẠN** tài khoản và số lượng giao dịch.
 
