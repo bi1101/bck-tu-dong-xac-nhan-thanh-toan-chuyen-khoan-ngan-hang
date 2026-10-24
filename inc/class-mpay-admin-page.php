@@ -74,7 +74,7 @@ class Mpay_Admin_Page
 				$settings['bank_transfer']['transaction_prefix'] = hpc_clean_prefix($settings['bank_transfer']['transaction_prefix']);	//$prefix =
 			}
 			if(isset($settings['bank_transfer']['extra_text'])) {
-				$settings['bank_transfer']['extra_text'] = sanitize_textare_field($settings['bank_transfer']['extra_text']);
+				$settings['bank_transfer']['extra_text'] = sanitize_textarea_field($settings['bank_transfer']['extra_text']);
 			}
 			//check if prefix changed
 			/*if(!empty($this->settings['bank_transfer']['transaction_prefix']) && $prefix!= $this->settings['bank_transfer']['transaction_prefix']) {
