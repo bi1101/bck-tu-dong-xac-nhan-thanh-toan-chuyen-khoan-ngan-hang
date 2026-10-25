@@ -1,0 +1,7 @@
+{
+  "apiVersion": 3,
+  "name": "bck/order-confirmation",
+  "title": "BCK payment instructions",
+  "category": "woocommerce",
+  "supports": { "html": false }
+}

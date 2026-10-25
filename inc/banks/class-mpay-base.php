@@ -226,6 +226,10 @@ abstract class WC_Base_Mpay extends WC_Payment_Gateway
 	 */
 	public function thankyou_page($order_id)
 	{
+		// The block order-confirmation extension renders these details itself.
+		if ( class_exists( 'Mpay_Blocks' ) && Mpay_Blocks::is_block_order_confirmation() ) {
+			return;
+		}
 		
 		if ($this->instructions) {
 			echo wp_kses_post(wpautop(wptexturize(wp_kses_post($this->instructions))));
@@ -237,6 +241,14 @@ abstract class WC_Base_Mpay extends WC_Payment_Gateway
 			//$wp_session['input_thank'] = true;
 			$this->bank_details($order_id, false);
 		}
+	}
+
+	/** Render the same gateway-specific instructions inside the block order confirmation. */
+	public function render_block_payment_details($order_id)
+	{
+		ob_start();
+		$this->bank_details($order_id, false);
+		return ob_get_clean();
 	}
 
 	/**
