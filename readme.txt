@@ -3,8 +3,8 @@
  - Contributors: haibasoft
  - Tags: woocommerce, payment gateway, gateway, ket noi ngan hang, vietcombank, techcombank, plugin thanh toan, acb, ocb, msb, scb, shb, mbbank, sacombank, vpbank, hdbank, momo, viettelpay, vnpay, vietinbank, bidv, agribank, vib, abbank, bac a bank, eximbank, nam a bank, ncb, seabank, lienvietpostbank, viet capital bank, timo, timo plus, cake, tnex, MoMo, thanh toán momo, quét mã qr, quét qr code, ViettelPay, VNPay, thanh toán ngân hàng, Vietcombank, VietinBank, Techcombank, MB, ACB, VPBank, BIDV, TPBank, HDBank, Agribank, VIB, Sacombank, OCB, MSB, LienVietPostBank, Viet Capital Bank, Timo, Cake, TNEX
  - Requires WooCommerce at least: 2.1
- - Stable Tag: 2.0.1
- - Version: 2.0.1
+ - Stable Tag: 2.0.2
+ - Version: 2.0.2
  - Tested up to: 6.7.1
  - Author URI: https://haibasoft.com
  - Plugin URI: https://bck.haibasoft.com/
@@ -74,6 +74,9 @@ Bạn vui lòng gởi thông tin vào phần Support để được hổ trợ
 
 
 == Changelog ==
+
+= 2026.10.25 - version 2.0.2 =
+ * Add WooCommerce Blocks payment gateway support.
 = 2021.07.20 - version 2.3.0 =
  * Fix bug prefix plugin
 
