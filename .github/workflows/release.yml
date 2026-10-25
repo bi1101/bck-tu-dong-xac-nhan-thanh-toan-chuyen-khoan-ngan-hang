@@ -1,0 +1,43 @@
+name: Build plugin release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      PLUGIN_SLUG: bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang
+      ZIP_NAME: bck-tu-dong-xac-nhan-thanh-toan-chuyen-khoan-ngan-hang.zip
+    steps:
+      - name: Check out plugin
+        uses: actions/checkout@v4
+
+      - name: Build plugin ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "dist/${PLUGIN_SLUG}"
+          git archive HEAD | tar -x -C "dist/${PLUGIN_SLUG}"
+          rm -rf "dist/${PLUGIN_SLUG}/.github" "dist/${PLUGIN_SLUG}/.wordpress-org"
+          (cd dist && zip -qr "../${ZIP_NAME}" "${PLUGIN_SLUG}")
+          unzip -t "${ZIP_NAME}"
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bck-plugin
+          path: ${{ env.ZIP_NAME }}
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${GITHUB_REF_NAME}" "${ZIP_NAME}" --repo "${GITHUB_REPOSITORY}" --title "${GITHUB_REF_NAME}" --generate-notes
