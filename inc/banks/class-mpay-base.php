@@ -226,6 +226,10 @@ abstract class WC_Base_Mpay extends WC_Payment_Gateway
 	 */
 	public function thankyou_page($order_id)
 	{
+		// The block order-confirmation extension renders these details itself.
+		if ( class_exists( 'Mpay_Blocks' ) && Mpay_Blocks::is_block_order_confirmation() ) {
+			return;
+		}
 		
 		if ($this->instructions) {
 			echo wp_kses_post(wpautop(wptexturize(wp_kses_post($this->instructions))));
@@ -237,6 +241,14 @@ abstract class WC_Base_Mpay extends WC_Payment_Gateway
 			//$wp_session['input_thank'] = true;
 			$this->bank_details($order_id, false);
 		}
+	}
+
+	/** Render the same gateway-specific instructions inside the block order confirmation. */
+	public function render_block_payment_details($order_id)
+	{
+		ob_start();
+		$this->bank_details($order_id, false);
+		return ob_get_clean();
 	}
 
 	/**
@@ -504,8 +516,7 @@ else {
 
 						
 						<div><span class="qhtp-timer" style="display:none" id="timer_'.$i.'">03:00</span></div>
-						<button  name="submit_paid" id="input_mpay" class="submit_paid_'.$i.'" style="margin-bottom: 20px;"  type="button"
-						class="button '.$disabled.'"  >' . $order_content  . '</button>
+						<button name="submit_paid" id="input_mpay" class="button wp-element-button submit_paid_'.$i.' '.$disabled.'" style="margin-bottom: 20px;" type="button">' . $order_content  . '</button>
 						</form>
 						</center>
 						<h5 style="color: red; display: none;" id="noTransaction_'.$i.'">' .  __("No matching transfers were found. The system is still checking the transaction", 'bck-verify-bank-transfer') . '</h5>

@@ -70,7 +70,8 @@ class MpayPayment
 		$this->domain = 'bck-verify-bank-transfer';
 		add_action('plugins_loaded', array($this, 'load_plugin_textdomain'));
 
-		add_action('init', array($this, 'init'));
+		// Register before WooCommerce Blocks initializes its payment registry.
+		add_action('init', array($this, 'init'), 1);
 
 		register_activation_hook( __FILE__, array($this,'activate') );
 		register_deactivation_hook( __FILE__, array($this,'deactivate') );
@@ -208,6 +209,7 @@ class MpayPayment
 		//add_action('woocommerce_api_' . self::$webhook_route, array($this, 'pc_payment_handler'));
 
 		if ('yes' == $settings['bank_transfer']['enabled'] ) {
+			// Blocks support is registered after the gateway classes are loaded below.
 			// chỗ này e tách ra ngoài code cho clean mà nó k nhận (gộp woocommerce_payment_gateways)
 			
 			require_once(MPAY_DIR . 'inc/banks/class-mpay-acb.php');
@@ -257,6 +259,8 @@ class MpayPayment
 			//require_once(MPAY_DIR . 'inc/banks/class-mpay-zalopay.php');
 			require_once(MPAY_DIR . 'inc/banks/class-mpay-momo.php');
 			require_once(MPAY_DIR . 'inc/banks/class-mpay-viettelpay.php');
+			require_once(MPAY_DIR . 'inc/class-mpay-blocks.php');
+			Mpay_Blocks::register();
 
 			#require_once(MPAY_DIR . 'inc/banks/class-mpay-vnptpay.php');
 			//require_once(MPAY_DIR . 'inc/banks/class-mpay-mobifonepay.php');
