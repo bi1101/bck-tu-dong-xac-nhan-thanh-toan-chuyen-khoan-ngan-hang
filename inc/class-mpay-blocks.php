@@ -75,7 +75,6 @@ final class Mpay_Blocks {
 
 final class Mpay_Blocks_Payment_Method extends Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType {
 	private $gateway;
-	private $asset_api;
 
 	public function __construct( $gateway ) {
 		$this->gateway = $gateway;
@@ -91,9 +90,9 @@ final class Mpay_Blocks_Payment_Method extends Automattic\WooCommerce\Blocks\Pay
 	}
 
 	public function get_payment_method_script_handles() {
-		$handle = 'bck-block-payment-' . sanitize_key( $this->name );
+		$handle = 'bck-block-payment-methods';
 		wp_register_script( $handle, MPAY_URL . 'assets/js/blocks-payment.js', array( 'wc-blocks-registry', 'wc-settings', 'wc-sanitize', 'wp-element', 'wp-html-entities' ), '2.0.1', true );
-		wp_add_inline_script( $handle, 'window.BCK_BLOCK_GATEWAY = ' . wp_json_encode( $this->name ) . ';', 'before' );
+		wp_add_inline_script( $handle, 'window.BCK_BLOCK_GATEWAYS = window.BCK_BLOCK_GATEWAYS || []; window.BCK_BLOCK_GATEWAYS.push(' . wp_json_encode( $this->name ) . ');', 'before' );
 		return array( $handle );
 	}
 

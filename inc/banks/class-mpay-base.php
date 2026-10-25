@@ -516,8 +516,7 @@ else {
 
 						
 						<div><span class="qhtp-timer" style="display:none" id="timer_'.$i.'">03:00</span></div>
-						<button  name="submit_paid" id="input_mpay" class="submit_paid_'.$i.'" style="margin-bottom: 20px;"  type="button"
-						class="button '.$disabled.'"  >' . $order_content  . '</button>
+						<button name="submit_paid" id="input_mpay" class="button wp-element-button submit_paid_'.$i.' '.$disabled.'" style="margin-bottom: 20px;" type="button">' . $order_content  . '</button>
 						</form>
 						</center>
 						<h5 style="color: red; display: none;" id="noTransaction_'.$i.'">' .  __("No matching transfers were found. The system is still checking the transaction", 'bck-verify-bank-transfer') . '</h5>
