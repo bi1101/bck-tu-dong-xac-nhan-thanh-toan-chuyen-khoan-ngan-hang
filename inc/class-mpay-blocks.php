@@ -60,7 +60,7 @@ final class Mpay_Blocks {
 		$settings = MpayPayment::get_settings();
 		$expected = isset( $settings['order_status']['order_status_after_paid'] ) ? $settings['order_status']['order_status_after_paid'] : 'wc-completed';
 		if ( ! wp_script_is( $handle, 'registered' ) ) {
-			wp_register_script( $handle, '', array(), '2.0.1', true );
+			wp_register_script( $handle, '', array(), '2.0.2', true );
 			wp_add_inline_script( $handle, '(function(){var root=document.querySelector(".bck-block-order-confirmation");if(!root)return;var expected=' . wp_json_encode( $expected ) . ';setInterval(function(){fetch(' . wp_json_encode( admin_url( 'admin-ajax.php?action=fetch_order_status_hpc&order_id=' . absint( $order_id ) ) ) . ').then(function(r){return r.text();}).then(function(status){if(status===expected)window.location.reload();});},3000);}());' );
 		}
 		wp_enqueue_script( $handle );
@@ -91,7 +91,7 @@ final class Mpay_Blocks_Payment_Method extends Automattic\WooCommerce\Blocks\Pay
 
 	public function get_payment_method_script_handles() {
 		$handle = 'bck-block-payment-methods';
-		wp_register_script( $handle, MPAY_URL . 'assets/js/blocks-payment.js', array( 'wc-blocks-registry', 'wc-settings', 'wc-sanitize', 'wp-element', 'wp-html-entities' ), '2.0.1', true );
+		wp_register_script( $handle, MPAY_URL . 'assets/js/blocks-payment.js', array( 'wc-blocks-registry', 'wc-settings', 'wc-sanitize', 'wp-element', 'wp-html-entities' ), '2.0.2', true );
 		wp_add_inline_script( $handle, 'window.BCK_BLOCK_GATEWAYS = window.BCK_BLOCK_GATEWAYS || []; window.BCK_BLOCK_GATEWAYS.push(' . wp_json_encode( $this->name ) . ');', 'before' );
 		return array( $handle );
 	}
