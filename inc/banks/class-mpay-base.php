@@ -321,7 +321,7 @@ $output.= '<div id="banks_details">';
 if($is_payment) {
 	$output .= '<div class="mpay-success"><img src="' . MPAY_URL.'/assets/success-icon.png' . '"  style = "max-width: 100px; margin: 20px" id =""/>';
 	$output.='<h2>Bạn đã thanh toán</h2>';
-	$output.= '<p>Chúng tôi đã nhận được đơn hàng của bạn và sẽ sớm liên hệ với bạn.</p></div>';
+	$output.= '</div>';
 	//$output.= '</div>';
 }
 else {

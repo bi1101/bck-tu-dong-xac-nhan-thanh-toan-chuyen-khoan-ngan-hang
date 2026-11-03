@@ -90,3 +90,110 @@ td .bck-bank-icon{
 .bck-bank-icon{
     max-width: 100px;
 }
+
+/* Keep BCK payment instructions near the order heading, including in classic themes. */
+.woocommerce-order-over:has(#banks_details) {
+    padding: 0;
+    margin-bottom: 20px;
+}
+.woocommerce-order-over:has(#banks_details) > h2 {
+    margin: 0 0 8px;
+}
+.woocommerce-order-over:has(#banks_details) > p {
+    margin: 0 0 12px;
+}
+.woocommerce-order-over:has(#banks_details) ul.order_details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px 16px;
+    margin: 0 0 16px;
+    padding: 0;
+}
+.woocommerce-order-over:has(#banks_details) ul.order_details li {
+    width: auto;
+    float: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow-wrap: anywhere;
+}
+#banks_details > div:has(> .woocommerce-mpay-bck-bank-details) {
+    display: grid;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 16px;
+}
+#banks_details section {
+    min-width: 0;
+    margin: 0;
+}
+#banks_details h2.wc-mpay-bck-bank-details-heading {
+    font-size: 20px;
+    line-height: 1.3;
+    margin: 0 0 12px !important;
+}
+#banks_details #qrcode img {
+    width: 320px;
+    max-width: 100%;
+    height: auto;
+}
+#banks_details .woocommerce-mpay-bck-bank-details h4 {
+    margin-bottom: 12px !important;
+    padding: 10px !important;
+    font-size: 14px;
+    line-height: 1.4;
+}
+#banks_details table {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 12px;
+}
+#banks_details table td {
+    width: auto;
+    padding: 8px 12px;
+    overflow-wrap: anywhere;
+    line-height: 1.4;
+}
+#banks_details center {
+    margin-top: 8px !important;
+}
+#banks_details .qhtp-timer {
+    font-size: 20px;
+}
+@media (min-width: 600px) {
+    #banks_details > div:has(> .woocommerce-mpay-bck-bank-details) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    }
+    #banks_details > div > .woocommerce-mpay-bck-bank-details:only-child {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 599px) {
+    #banks_details #qrcode img {
+        width: 280px;
+    }
+}
+@media (max-width: 599px) {
+    .woocommerce-order-over:has(#banks_details) ul.order_details li {
+        grid-column: auto;
+    }
+    .woocommerce-order-over:has(#banks_details) > h2 {
+        font-size: 20px;
+    }
+    #banks_details > div:has(> .woocommerce-mpay-bck-bank-details) {
+        gap: 10px;
+    }
+
+    #banks_details table td {
+        padding: 5px 8px;
+        font-size: 14px;
+    }
+    #banks_details h2.wc-mpay-bck-bank-details-heading {
+        margin-bottom: 8px !important;
+        font-size: 18px;
+    }
+}
+.woocommerce-order-over:has(#banks_details) ul.order_details::before,
+.woocommerce-order-over:has(#banks_details) ul.order_details::after {
+    display: none;
+}

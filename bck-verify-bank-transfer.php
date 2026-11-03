@@ -128,7 +128,7 @@ class MpayPayment
 				'show_in_admin_status_list' => true,
 				'label_count'               => _n_noop(__('Underpaid', 'bck-verify-bank-transfer') . ' (%s)', __('Underpaid', 'bck-verify-bank-transfer') . ' (%s)')
 			));
-			wp_enqueue_style('mpay-style', plugins_url('assets/css/style.css', __FILE__), array(), false, 'all');
+			wp_enqueue_style('mpay-style', plugins_url('assets/css/style.css', __FILE__), array(), filemtime(__DIR__ . '/assets/css/style.css'), 'all');
 			wp_enqueue_script('mpay-qrcode', plugins_url('assets/js/easy.qrcode.js', __FILE__), array('jquery'), '', true);
 			if(is_admin() && isset($_GET['page']) && $_GET['page']=='bck') {
 				wp_enqueue_script('mpay-js', plugins_url('assets/js/js.js', __FILE__), array('jquery'), '', true);
