@@ -69,7 +69,8 @@ final class Mpay_Blocks {
 	}
 
 	public static function is_block_order_confirmation() {
-		return function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' ) && function_exists( 'has_block' ) && has_block( 'woocommerce/checkout', wc_get_page_id( 'checkout' ) );
+		// The hooked confirmation block only renders in a block theme; classic themes use the legacy thank-you hook.
+		return function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() && function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( 'order-received' );
 	}
 }
 
