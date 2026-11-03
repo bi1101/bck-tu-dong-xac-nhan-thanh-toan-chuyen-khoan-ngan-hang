@@ -439,6 +439,7 @@ else {
 					else {
 						$showPayment .= sprintf('<img src="%s" class="bank-logo"/>',MpayPayment::get_bank_icon($bacs_account->bank_name));
 					}
+					$showPayment .= '<span class="qhtp-timer" style="display:none" id="timer_'.$i.'">03:00</span>';
 					$showPayment .= '<section class="woocommerce-mpay-bck-bank-details">
 						<!-- BANK DETAIL TITLE -->
 						<h2 class="wc-mpay-bck-bank-details-heading" style="text-align: center;">' . esc_html__('Our bank details', 'bck-verify-bank-transfer') . '</h2>';
@@ -515,7 +516,6 @@ else {
 						<input name="order_id" type="hidden" value="' . $order_id . '">
 
 						
-						<div><span class="qhtp-timer" style="display:none" id="timer_'.$i.'">03:00</span></div>
 						<button name="submit_paid" id="input_mpay" class="button wp-element-button submit_paid_'.$i.' '.$disabled.'" style="margin-bottom: 20px;" type="button">' . $order_content  . '</button>
 						</form>
 						</center>
