@@ -120,8 +120,10 @@ td .bck-bank-icon{
 #banks_details > div:has(> .woocommerce-mpay-bck-bank-details) {
     display: grid;
     gap: 16px;
-    align-items: start;
-    margin-bottom: 16px;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 640px;
+    margin: 0 auto 16px;
+    text-align: center;
 }
 #banks_details section {
     min-width: 0;
@@ -159,14 +161,6 @@ td .bck-bank-icon{
 }
 #banks_details .qhtp-timer {
     font-size: 20px;
-}
-@media (min-width: 600px) {
-    #banks_details > div:has(> .woocommerce-mpay-bck-bank-details) {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
-    }
-    #banks_details > div > .woocommerce-mpay-bck-bank-details:only-child {
-        grid-column: 1 / -1;
-    }
 }
 @media (max-width: 599px) {
     #banks_details #qrcode img {
