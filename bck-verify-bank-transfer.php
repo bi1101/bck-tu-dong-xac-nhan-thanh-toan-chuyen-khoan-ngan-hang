@@ -8,7 +8,7 @@
  * Author URI: https://haibasoft.com/
  * Text Domain: bck-verify-bank-transfer
  * Domain Path: /languages
- * Version: 2.0.2
+ * Version: 2.0.3
  * License: GNU General Public License v3.0
  */
 
