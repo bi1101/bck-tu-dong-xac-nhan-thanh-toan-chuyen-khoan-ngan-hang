@@ -133,7 +133,7 @@ td .bck-bank-icon{
     margin: 0 0 12px !important;
 }
 #banks_details #qrcode img {
-    width: 240px;
+    width: 320px;
     max-width: 100%;
     height: auto;
 }
@@ -170,7 +170,7 @@ td .bck-bank-icon{
 }
 @media (max-width: 599px) {
     #banks_details #qrcode img {
-        width: 200px;
+        width: 280px;
     }
 }
 @media (max-width: 599px) {
@@ -183,9 +183,7 @@ td .bck-bank-icon{
     #banks_details > div {
         gap: 10px;
     }
-    #banks_details #qrcode img {
-        width: 160px;
-    }
+
     #banks_details table td {
         padding: 5px 8px;
         font-size: 14px;
