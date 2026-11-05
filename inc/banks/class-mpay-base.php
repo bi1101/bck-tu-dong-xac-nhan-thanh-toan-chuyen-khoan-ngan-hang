@@ -321,6 +321,7 @@ $output.= '<div id="banks_details">';
 if($is_payment) {
 	$output .= '<div class="mpay-success"><img src="' . MPAY_URL.'/assets/success-icon.png' . '"  style = "max-width: 100px; margin: 20px" id =""/>';
 	$output.='<h2>Bạn đã thanh toán</h2>';
+	$output .= '<a class="button wp-element-button mpay-home-button" href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Return to homepage', 'bck-verify-bank-transfer' ) . '</a>';
 	$output.= '</div>';
 	//$output.= '</div>';
 }
