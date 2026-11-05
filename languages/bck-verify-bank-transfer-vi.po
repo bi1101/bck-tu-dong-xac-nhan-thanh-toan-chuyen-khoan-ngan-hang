@@ -360,3 +360,7 @@ msgstr "Webhook URL"
 #: inc/banks/class-mpay-base.php:312 inc/banks/class-mpay-base.php:615
 msgid "You paid"
 msgstr "Bạn đã thanh toán thành công"
+
+#: inc/banks/class-mpay-base.php
+msgid "Return to homepage"
+msgstr "Về trang chủ"

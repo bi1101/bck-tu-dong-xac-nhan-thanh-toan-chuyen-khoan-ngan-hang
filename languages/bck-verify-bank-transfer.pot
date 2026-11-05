@@ -97,6 +97,10 @@ msgstr ""
 msgid "You paid"
 msgstr ""
 
+#: inc/banks/class-mpay-base.php
+msgid "Return to homepage"
+msgstr ""
+
 #: inc/banks/class-mpay-base.php:333
 #: inc/banks/class-mpay-momo.php:123
 msgid "Bank transfer QR code"
